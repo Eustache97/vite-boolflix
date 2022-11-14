@@ -1,24 +1,32 @@
 <script>
 import { store } from './store';
+import AppSearch from './components/AppSearch.vue';
 import axios from "axios";
 export default {
+  components: {
+    AppSearch
+  },
   data() {
     return{
       store
     }
   },
-  created() {
-    axios.get('https://api.themoviedb.org/3/search/movie?api_key=d5e6ce8e07b5f1bdce71217cc18cfd92')
+  methods: {
+    getElements: function(){
+      axios.get(`"https://api.themoviedb.org/3/search/movie?api_key=d5e6ce8e07b5f1bdce71217cc18cfd92&query=${store.searchKey}"`)
     .then((resp) => {
       console.log(resp.data.results);
     });
+    }
+  },
+  created() {
   }
 }
 </script>
 
 <template>
-<h1>ciao</h1>
+<AppSearch />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>
