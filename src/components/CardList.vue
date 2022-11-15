@@ -1,6 +1,11 @@
 <script>
 import { store } from "../store";
+import AppCard from "./AppCard.vue";
 export default {
+    name: "CardList",
+    components: {
+        AppCard
+    },
     data() {
         return {
             store
@@ -10,14 +15,18 @@ export default {
 </script>
 <template>
 <section>
-    <ul
-    v-for="(film, index) in store.elementsContainer">
-        <li><h2>FILM {{index + 1}}</h2></li>
-        <li><strong>Titolo:</strong> {{film.title}} </li>
-        <li><strong>Titolo originale:</strong> {{film.original_title}} </li>
-        <li><strong>Lingua:</strong> {{film.original_language}} </li>
-        <li><strong>Voto:</strong> {{film.vote_average}} </li>
-    </ul>
+    <h2>FILMS</h2>
+    <div v-for="(movie, index) in store.movies" :key="movie.id">
+        <h3>FILM {{index + 1}} </h3>
+        <AppCard :item="movie"/>
+    </div>
+</section>
+<section>
+    <h2>SERIES</h2>
+    <div v-for="(serie, index) in store.series" :key="serie.id">
+        <h3>SERIE {{index + 1}} </h3>
+        <AppCard :item="serie"/>
+    </div>
 </section>
 </template>
 <style lang="scss" scoped>

@@ -14,14 +14,24 @@ export default {
     }
   },
   methods: {
-    getElements: function(){
-      let searchParam = `&query=${this.store.searchKey}`
-      axios.get(`${this.store.urlMovie}${this.store.urlKey}${searchParam}`)
+    search() {
+      const searchParam = `&query=${this.store.searchKey}`;
+      this.getMovies(searchParam);
+      this.getSeries(searchParam);
+    },
+    getMovies(param) {
+      axios.get(`${this.store.urlMovie}${this.store.urlKey}${param}`)
     .then((resp) => {
-      this.store.elementsContainer = resp.data.results; 
-      console.log(this.store.elementsContainer);
+      this.store.movies = resp.data.results; 
+      console.log(this.store.movies);
+    }); 
+    },
+    getSeries(param) {
+      axios.get(`${this.store.urlSeries}${this.store.urlKey}${param}`)
+    .then((resp) => {
+      this.store.series = resp.data.results; 
+      console.log(this.store.series);
     });
-   this.store.searchKey = ""; 
     }
   },
   created() {
@@ -30,7 +40,7 @@ export default {
 </script>
 
 <template>
-<AppSearch @performSearch="getElements"/>
+<AppSearch @performSearch="search()"/>
 <CardList />
 </template>
 
