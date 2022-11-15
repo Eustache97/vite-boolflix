@@ -1,10 +1,12 @@
 <script>
 import { store } from './store';
 import AppSearch from './components/AppSearch.vue';
+import CardList from './components/CardList.vue';
 import axios from "axios";
 export default {
   components: {
-    AppSearch
+    AppSearch,
+    CardList
   },
   data() {
     return{
@@ -13,10 +15,13 @@ export default {
   },
   methods: {
     getElements: function(){
-      axios.get(`"https://api.themoviedb.org/3/search/movie?api_key=d5e6ce8e07b5f1bdce71217cc18cfd92&query=${store.searchKey}"`)
+      let searchParam = `&query=${this.store.searchKey}`
+      axios.get(`${this.store.urlMovie}${this.store.urlKey}${searchParam}`)
     .then((resp) => {
-      console.log(resp.data.results);
+      this.store.elementsContainer = resp.data.results; 
+      console.log(this.store.elementsContainer);
     });
+   this.store.searchKey = ""; 
     }
   },
   created() {
@@ -25,8 +30,9 @@ export default {
 </script>
 
 <template>
-<AppSearch />
+<AppSearch @performSearch="getElements"/>
+<CardList />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

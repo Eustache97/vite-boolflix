@@ -16,8 +16,13 @@ export default {
      placeholder="insersci il titolo del film"
      v-model="store.searchKey">
     <button id="search"
-    @click="getElements()">Cerca</button>
+    @click="$emit(`performSearch`)">Cerca</button>
 </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
+.searchbar{
+    label{
+        display: none;
+    }
+}
 </style>
