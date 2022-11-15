@@ -24,6 +24,9 @@ export default {
     .then((resp) => {
       this.store.movies = resp.data.results; 
       console.log(this.store.movies);
+    })
+    .catch(err => {
+      console.log(err);
     }); 
     },
     getSeries(param) {
@@ -31,6 +34,9 @@ export default {
     .then((resp) => {
       this.store.series = resp.data.results; 
       console.log(this.store.series);
+    })
+    .catch(err => {
+      console.log(err);
     });
     }
   },

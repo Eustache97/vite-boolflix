@@ -8,7 +8,8 @@ export default {
     data() {
         return {
             store,
-            availableFlags: ['en', 'it', 'es']
+            availableFlags: ['en', 'it', 'es'],
+            imgUrl: ""
         }
     },
     computed: {
@@ -22,6 +23,9 @@ export default {
     methods: {
         getImg(imgName) {
             return new URL(`../assets/img/${imgName}.png`, import.meta.url).href;
+        },
+        getCoverImg() {
+            return this.imgUrl = `${this.store.urlImgCover}${this.store.imgCoverSize}${this.item.poster_path}`;;
         }
     }
 }
@@ -36,6 +40,8 @@ export default {
      {{item.original_language}} </li>
     <li><strong>Voto:</strong> {{item.vote_average}} </li>
 </ul>
+<p><strong>Copertina:</strong></p>
+<img :src="getCoverImg()" alt="">
 </div>
 </template>
 <style lang="scss" scoped>
