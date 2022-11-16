@@ -18,6 +18,9 @@ export default {
         },
         getOriginalTitle() {
             return this.item.original_title ? this.item.original_title : this.item.original_name;
+        },
+        getStarsNumber() {
+            return Math.ceil(this.item.vote_average / 2);
         }
     },
     methods: {
@@ -39,11 +42,12 @@ export default {
         <img class="flag" v-if="availableFlags.includes(item.original_language)" :src="getImg(item.original_language)">
      {{item.original_language}} </li>
     <li><strong>Voto:</strong> {{item.vote_average}} 
-        <i class="fa-solid fa-star"></i>
-            <span v-for="number in 5">0</span></li>
+        <i v-for="n in 5" :key="n" :class="n <= getStarsNumber ? 'fa-solid' : 'fa-regular'"
+                        class="fa-star"></i></li>
 </ul>
 <p><strong>Copertina:</strong></p>
-<img :src="getCoverImg()" alt="">
+<img v-if="item.poster_path === null" src="../assets/img/no-image.jpeg" alt="not-found">
+<img :src="getCoverImg()" alt="" v-else>
 </div>
 </template>
 <style lang="scss" scoped>
