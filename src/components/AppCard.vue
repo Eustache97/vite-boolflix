@@ -38,7 +38,9 @@ export default {
     <li><strong>Lingua:</strong>
         <img class="flag" v-if="availableFlags.includes(item.original_language)" :src="getImg(item.original_language)">
      {{item.original_language}} </li>
-    <li><strong>Voto:</strong> {{item.vote_average}} </li>
+    <li><strong>Voto:</strong> {{item.vote_average}} 
+        <i class="fa-solid fa-star"></i>
+            <span v-for="number in 5">0</span></li>
 </ul>
 <p><strong>Copertina:</strong></p>
 <img :src="getCoverImg()" alt="">
