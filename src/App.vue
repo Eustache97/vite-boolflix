@@ -1,11 +1,13 @@
 <script>
 import { store } from './store';
 import AppSearch from './components/AppSearch.vue';
+import AppLoader from './components/AppLoader.vue';
 import CardList from './components/CardList.vue';
 import axios from "axios";
 export default {
   components: {
     AppSearch,
+    AppLoader,
     CardList
   },
   data() {
@@ -15,9 +17,11 @@ export default {
   },
   methods: {
     search() {
+      this.store.loading = true;
       const searchParam = `&query=${this.store.searchKey}`;
       this.getMovies(searchParam);
       this.getSeries(searchParam);
+      this.store.loading = false;
     },
     getMovies(param) {
       axios.get(`${this.store.urlMovie}${this.store.urlKey}${param}`)
@@ -46,10 +50,25 @@ export default {
 </script>
 
 <template>
-<AppSearch @performSearch="search()"/>
-<CardList />
+  <div class="wrapper">
+    <AppSearch @performSearch="search()"/>
+    <div class="content">
+      <AppLoader v-if="store.loading"/>
+      <CardList v-else/> 
+  </div>
+    
+  </div>
+
 </template>
 
 <style lang="scss">
 @use "./styles/general.scss"as*;
+.wrapper{
+  .content{
+  width: 100%;
+  height: 90vh;
+  overflow-y: scroll;
+  }
+}
+
 </style>

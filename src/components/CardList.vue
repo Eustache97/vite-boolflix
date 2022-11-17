@@ -14,23 +14,41 @@ export default {
 }
 </script>
 <template>
-<section>
-    <h2>FILMS</h2>
-    <div v-for="(movie, index) in store.movies" :key="movie.id">
-        <h3>FILM {{index + 1}} </h3>
-        <AppCard :item="movie"/>
+    <div class="container">
+        <section>
+            <h2>FILMS</h2>
+            <div class="row">
+                <div class="col" v-for="(movie, index) in store.movies" :key="movie.id">
+                    <AppCard :item="movie"/>
+                </div>  
+            </div>
+        </section>
+        <section>
+            <h2>SERIES</h2>
+            <div class="row">
+                <div class="col" v-for="(serie, index) in store.series" :key="serie.id">
+                <AppCard :item="serie"/> 
+                </div>
+            </div>
+        </section>
     </div>
-</section>
-<section>
-    <h2>SERIES</h2>
-    <div v-for="(serie, index) in store.series" :key="serie.id">
-        <h3>SERIE {{index + 1}} </h3>
-        <AppCard :item="serie"/>
-    </div>
-</section>
+
 </template>
 <style lang="scss" scoped>
-ul{
-    margin-bottom: 1rem;
+section{
+    margin-bottom: 2em;
+    h2{
+        margin: 1em 0;
+    }
+    .row{
+        display:flex;
+        flex-wrap: wrap;
+        width: 100%;
+        .col{
+            width: calc(100% / 4 - 1rem);
+            margin-right: 1rem;
+        }
+    }
 }
+    
 </style>
